@@ -1,0 +1,16 @@
+# Secrets and OAuth tokens
+client_secret_*.json
+.agents/token.*
+
+# Output files
+Output giáo án docs/
+Output giao an docs/
+
+# Input files
+Nhập học liệu pdf và docs/
+Nhap hoc lieu pdf va docs/
+
+# Python / macOS
+__pycache__/
+*.pyc
+.DS_Store
