@@ -85,10 +85,12 @@ def main():
     parser = argparse.ArgumentParser(description="Lesson Plan Pipeline")
     parser.add_argument("--age",     required=True, help="Age group, e.g. 3-4")
     parser.add_argument("--dry-run", action="store_true", help="Skip Google Drive upload")
+    parser.add_argument("--auto-approve", action="store_true", help="Bypass human checkpoint before upload")
     args = parser.parse_args()
 
-    age     = args.age
-    dry_run = args.dry_run
+    age          = args.age
+    dry_run      = args.dry_run
+    auto_approve = args.auto_approve
 
     print(f"\n{'#'*60}")
     print(f"  LESSON PLAN PIPELINE  |  Age: {age}  |  Dry-run: {dry_run}")
@@ -110,6 +112,17 @@ def main():
     if not batch_convert_docx(age):
         print("[PIPELINE] Warning: no DOCX files produced. Skipping upload.")
         return
+
+    # HUMAN CHECKPOINT
+    if not dry_run and not auto_approve:
+        print(f"\n{'='*60}")
+        print(f"  HUMAN CHECKPOINT")
+        print(f"{'='*60}")
+        print("[PIPELINE] Vui lòng kiểm tra các file DOCX trong thư mục 'Output giao an docs'.")
+        user_input = input("[PIPELINE] Nhấn Enter để phê duyệt và đẩy lên Drive/Sheet, hoặc gõ 'exit' để dừng: ")
+        if user_input.strip().lower() == 'exit':
+            print("[PIPELINE] Pipeline stopped by user at Human Checkpoint.")
+            return
 
     # Step 5 – Upload to Google Drive + Sheet
     if dry_run:

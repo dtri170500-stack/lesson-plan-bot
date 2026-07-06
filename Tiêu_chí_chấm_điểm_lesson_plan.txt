@@ -1,0 +1,59 @@
+BAREM ĐIỂM CHI TIẾT ĐÁNH GIÁ LESSON PLAN (TỔNG: 100 ĐIỂM)
+======================================================================
+File này lượng hóa các tiêu chí trong tài liệu lead_scoring_lesson_plan.md nhằm giúp AI chấm điểm tự động một cách chính xác, minh bạch và nhất quán.
+
+----------------------------------------------------------------------
+1. KHẢ NĂNG XỬ LÝ VÀ QUÉT DỮ LIỆU ĐẦU VÀO (Tối đa: 15 điểm)
+----------------------------------------------------------------------
+[15 điểm] - Tuyệt đối: Trích xuất và hiểu chính xác 100% ý đồ bài học, từ vựng và mục tiêu của worksheet gốc. Giáo án bám sát hoàn toàn tài liệu thô.
+[10 điểm] - Tốt: Hiểu đúng chủ đề chính, nhưng bỏ sót 1-2 từ vựng phụ hoặc bối cảnh nhỏ trong file gốc.
+[ 5 điểm] - Kém: Trích xuất thiếu dữ liệu nghiêm trọng, giáo án sinh ra bị thiếu liên kết với tài liệu gốc do lỗi đọc file.
+[ 0 điểm] - Không đạt: Không nhận diện được dữ liệu đầu vào hoặc bịa đặt (hallucinate) hoàn toàn nội dung không hề có trong file gốc.
+
+----------------------------------------------------------------------
+2. TIÊU CHUẨN MONTESSORI VÀ TỔ CHỨC LỚP HỌC (Tối đa: 20 điểm)
+----------------------------------------------------------------------
+[20 điểm] - Xuất sắc: Tích hợp đầy đủ "Prepared environment" (chuẩn bị trạm học/vật liệu trực quan) và "Control of Error" (hoạt động cho trẻ tự sửa lỗi). Sử dụng 100% ngôn ngữ tích cực.
+[15 điểm] - Tốt: Môi trường thân thiện, có sự tự do trong giới hạn nhưng thiếu tính năng tự sửa lỗi (Self-correction) cho học sinh.
+[10 điểm] - Trung bình: Dạy theo kiểu truyền thống (thầy nói - trò nghe), thiếu vắng các yếu tố trạm học hoặc sự lựa chọn độc lập của trẻ, lời lẽ vẫn tích cực.
+[ 5 điểm] - Kém: Không có phương pháp rõ ràng, xuất hiện 1-2 câu mệnh lệnh khô khan.
+[ 0 điểm] - Không đạt: Đi ngược triết lý Montessori (ép buộc, dọa nạt, tạo áp lực nói hoàn hảo cho trẻ).
+
+----------------------------------------------------------------------
+3. CHUẨN PHƯƠNG PHÁP GIẢNG DẠY THEO ĐỘ TUỔI (Tối đa: 15 điểm)
+----------------------------------------------------------------------
+[15 điểm] - Hoàn hảo: Bài giảng tương thích 100% độ tuổi. 3-4 tuổi học qua TPR, bài ngắn, nhiều transition. 5-6 tuổi có tăng độ khó (ghép vần phonics, viết câu đơn, tư duy logic).
+[10 điểm] - Khá: Phù hợp độ tuổi nhưng thời lượng (duration) của một hoạt động tĩnh (như làm worksheet) kéo quá dài, dễ gây mất tập trung.
+[ 5 điểm] - Kém: Phân bổ bài học quá sức (VD: Yêu cầu trẻ 3 tuổi viết tự do) hoặc quá dễ.
+[ 0 điểm] - Không đạt: Hoàn toàn sai lệch độ tuổi và khả năng nhận thức của trẻ.
+
+----------------------------------------------------------------------
+4. TIẾN TRÌNH HỌC TẬP (SCAFFOLDING & PROGRESSION) (Tối đa: 15 điểm)
+----------------------------------------------------------------------
+[15 điểm] - Xuất sắc: Tịnh tiến độ khó logic theo thang Bloom: Dễ (Nhận biết/Matching) -> Trung bình (Hiểu) -> Khó (Sáng tạo/Crafts). Guided practice bám sát mục tiêu bài học.
+[10 điểm] - Khá: Có thứ tự dễ đến khó nhưng hoạt động kém phong phú (lặp lại một dạng bài tập nhiều lần).
+[ 5 điểm] - Kém: Tiến trình lộn xộn, thiếu bước đệm (scaffolding), nhảy cóc độ khó.
+[ 0 điểm] - Không đạt: Hoạt động lạc đề hoàn toàn so với Objectives của buổi học.
+
+----------------------------------------------------------------------
+5. ĐỘ AN TOÀN LỚP HỌC (SAFETY FACTOR) (Tối đa: 10 điểm)
+----------------------------------------------------------------------
+[10 điểm] - Tuyệt đối: Hoạt động an toàn 100%. Nếu có cắt dán thủ công, luôn ghi rõ: "Sử dụng kéo an toàn dưới sự giám sát sát sao từ TA".
+[ 5 điểm] - Khá: Không có hoạt động nguy hiểm trực tiếp, nhưng thiếu cảnh báo về việc dọn bàn ghế trước khi chơi các Game vận động mạnh (TPR).
+[ 0 điểm] - Cảnh báo đỏ: Có sử dụng vật nhọn (kéo bén, dao), đồ sinh nhiệt/lửa, hoặc các vật nhỏ (beads) dễ gây hóc sặc MÀ KHÔNG HỀ CÓ "Safety Note" hay sự giám sát.
+
+----------------------------------------------------------------------
+6. TÍNH TÒ MÒ, HỨNG THÚ VÀ ĐA GIÁC QUAN (Tối đa: 15 điểm)
+----------------------------------------------------------------------
+[15 điểm] - Xuất sắc: Phối hợp hoàn hảo nghe nhạc, vận động (games/nhảy), nhìn trực quan (flashcards/realia) và làm thủ công (crafts/tô màu).
+[10 điểm] - Khá: Bài học vui nhộn nhưng chỉ tập trung vào 1-2 giác quan (VD: Chủ yếu là nhìn tranh và nói, ít vận động).
+[ 5 điểm] - Kém: Nhàm chán, thiếu vắng âm nhạc và trò chơi, học sinh phải ngồi ghế quá lâu.
+[ 0 điểm] - Không đạt: Chỉ thuần túy chép bài, làm worksheet lặp đi lặp lại không có tính tương tác.
+
+----------------------------------------------------------------------
+7. ĐỊNH DẠNG VÀ ĐẶT TÊN FILE (Tối đa: 10 điểm)
+----------------------------------------------------------------------
+[10 điểm] - Hoàn hảo: Đúng định dạng (.md, .docx), Tên file chuẩn `[CHỦ ĐỀ] - Lesson [SỐ].docx`. Tiêu đề được căn giữa, chia đủ 4 Parts rõ ràng bằng tiếng Anh.
+[ 7 điểm] - Khá: Đủ 4 Parts nhưng tên file sai quy ước chữ hoa/thường hoặc thiếu dấu gạch ngang chuẩn (En Dash), chưa căn giữa tiêu đề.
+[ 3 điểm] - Kém: Thiếu 1 trong 4 Part bắt buộc (VD: Không có Review & Closing).
+[ 0 điểm] - Không đạt: File sinh ra lỗi định dạng, trộn lẫn tiếng Việt và tiếng Anh lộn xộn ở các tiêu đề chính.

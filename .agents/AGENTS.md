@@ -157,3 +157,23 @@ Bất kể khi nào người dùng nhập lệnh `Phonics 1. [Tên Unit/Letter c
 2. **Trích xuất học liệu (PDF Extraction):** Sử dụng script Python (sử dụng thư viện `PyPDF2` hoặc `PyMuPDF`) để tìm và trích xuất các trang tương ứng với Letter đó từ các file PDF trong thư mục `Phonics 1`.
 3. **Tạo thư mục lưu trữ cục bộ:** Lưu các trang PDF vừa trích xuất vào một folder cục bộ đặt tên theo cú pháp: `LETTER + [TÊN CHỮ CÁI]` (Ví dụ: `LETTER E`).
 4. **Google Drive Sync:** Tải thư mục này lên Google Drive đích theo đúng cấu trúc yêu cầu (Folder ID: `1UOuEIEVB9MNCggU52Fi8ZBb_XHHIm8PZ`).
+
+========================================================================
+
+## 8. QUY TẮC VẬN HÀNH THEO KHUNG CLEAR (CLEAR FRAMEWORK)
+Mọi Agent trong hệ thống phải tuân thủ nghiêm ngặt khung vận hành CLEAR để đảm bảo an toàn và tính ổn định:
+- **C - Clear (Rõ ràng):** Mỗi Agent chỉ đảm nhiệm một vai trò duy nhất và rõ ràng (Ví dụ: Agent phân loại chỉ phân loại, không kiêm chức năng sinh giáo án).
+- **L - Logical (Hợp lý):** Luồng thực thi phải theo trình tự logic, bắt buộc phải có bước kiểm tra/xác thực (validation) đầu vào trước khi bắt đầu xử lý để tránh lỗi dây chuyền.
+- **E - Explicit (Tường minh):** Mọi đầu ra (file JSON, file Markdown) phải tuân thủ chuẩn định dạng đã thống nhất. Mọi lỗi hoặc ngoại lệ (exceptions) phải được ghi log hoặc thông báo rõ ràng bằng ngôn ngữ tự nhiên.
+- **A - Accurate (Chính xác):** Phân tích và sinh nội dung phải dựa sát trên dữ liệu thực tế và tuân thủ tuyệt đối các quy định sư phạm. Không tự ý bịa đặt nội dung (hallucination) khi không có đủ dữ kiện.
+- **R - Reliable (Đáng tin cậy):** Hệ thống phải có khả năng xử lý lỗi linh hoạt (graceful fallback). Ví dụ, nếu thiếu tài liệu, Agent sẽ yêu cầu nhập thêm thay vì tự động điền bừa, đảm bảo kết quả cuối cùng có độ tin cậy tuyệt đối.
+
+========================================================================
+
+## 9. CƠ CHẾ BÀN GIAO DỮ LIỆU (AGENT HANDOFF MECHANISM)
+Để tránh mất mát và lỗi định dạng khi chuyển giao dữ liệu giữa các Agent, quy trình Handoff cần tuân thủ các quy định sau:
+- **Sử dụng File Trung Gian (Intermediate Artifacts):** Dữ liệu không được truyền trực tiếp qua bộ nhớ mà phải lưu thành file cục bộ để có thể kiểm soát và tái sử dụng.
+  + Dữ liệu cấu trúc/kế hoạch (như lịch học) -> Lưu dưới dạng `JSON` (VD: `schedule.json`).
+  + Dữ liệu nội dung (giáo án) -> Lưu dưới dạng `Markdown` (`.md`).
+- **Xác thực trước khi nhận (Pre-validation):** Agent nhận (Agent B) phải có trách nhiệm đọc và kiểm tra tính toàn vẹn của file (ví dụ: JSON có parse được không, có đủ key bắt buộc không) trước khi thực hiện logic của mình. Nếu lỗi, phải dừng và báo ngay cho hệ thống.
+- **Điểm chốt con người (Human Checkpoint):** Mọi luồng xử lý tự động (pipeline) có tác động đến việc báo cáo và lưu trữ vĩnh viễn (như gửi link bài lên Google Drive/Sheet) BẮT BUỘC phải có một trạm kiểm duyệt (Human Checkpoint) để người dùng xem trước (preview) kết quả và phê duyệt. Mọi hành vi tự động vượt rào phê duyệt này đều là vi phạm nếu không có chỉ định `--auto-approve`.
