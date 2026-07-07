@@ -45,45 +45,43 @@ def load_schedule() -> list:
 
 def build_rename_map(schedule: list) -> dict:
     """
-    Build mapping: original_stem → (new_name, subject, lesson_num, week)
-
-    Naming rule: [MÔN HỌC] - [TÊN CHỦ ĐỀ] - Lesson [N]
-    Lesson number counts per-subject.
+    Build mapping: original_stem (topic) -> (new_name, subject, week)
     Only slots with status == 'OK' are included.
+    We take the subject and week of the first lesson for that topic.
     """
     rename_map = {}
-    subject_counter: dict[str, int] = {}
 
     for slot in schedule:
         if slot.get("status") != "OK" or not slot.get("source"):
             continue
 
-        source  = slot["source"]     # e.g. "Cake Cut-Out"
-        subject = slot["subject"]    # e.g. "Show and Tell"
-        week    = slot["week"]       # e.g. "Week 1"
+        subject = slot.get("subject", "")
+        topic   = slot.get("topic", subject)
+        week    = slot.get("week", "Week 1")
 
-        subject_counter[subject] = subject_counter.get(subject, 0) + 1
-        lesson_num = subject_counter[subject]
-
-        # Find matching DOCX file (match topic part of stem)
+        # Find matching DOCX file (match topic)
+        expected_stem = topic
         matched_stem = None
-        for docx in OUTPUT_FOLDER.glob("*.docx"):
+        for docx in OUTPUT_FOLDER.rglob("*.docx"):
             stem = docx.stem
-            # Strip trailing " - Lesson N" to get topic
-            topic_part = re.sub(r"\s*-\s*[Ll]esson\s*\d+$", "", stem).strip()
-            if topic_part.lower() == source.lower():
+            clean_expected = re.sub(r'[\\/:*?"<>|]', '', expected_stem)[:60].strip().lower()
+            clean_stem = re.sub(r'[\\/:*?"<>|]', '', stem)[:60].strip().lower()
+            if clean_stem == clean_expected:
                 matched_stem = stem
                 break
 
         if matched_stem is None:
-            print(f"  [WARN] No DOCX matched for source: '{source}'")
+            print(f"  [WARN] No DOCX matched for topic: '{topic}'")
             continue
 
-        new_name = f"{subject} - {source} - Lesson {lesson_num}"
+        # If already mapped, we skip (so we only upload once per topic)
+        if matched_stem in rename_map:
+            continue
+
+        new_name = f"{subject} - {topic}"
         rename_map[matched_stem] = {
             "new_name":   new_name,
             "subject":    subject,
-            "lesson_num": lesson_num,
             "week":       week,
         }
 
@@ -125,7 +123,7 @@ def main(age: str):
     schedule   = load_schedule()
     rename_map = build_rename_map(schedule)
 
-    docx_files = sorted(OUTPUT_FOLDER.glob("*.docx"))
+    docx_files = sorted(OUTPUT_FOLDER.rglob("*.docx"))
     if not docx_files:
         print("[upload_gas] No DOCX files found in output folder.")
         return False

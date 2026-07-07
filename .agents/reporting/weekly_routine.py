@@ -13,7 +13,7 @@ def run_pipeline_for_age(age: str, dry_run: bool = True):
     print(f"{'='*80}")
     
     script_path = AGENTS_DIR / "run_pipeline.py"
-    cmd = [sys.executable, str(script_path), "--age", age, "--auto-approve"]
+    cmd = [sys.executable, str(script_path), "--age", age]
     if dry_run:
         cmd.append("--dry-run")
         

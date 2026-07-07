@@ -14,3 +14,5 @@ Nhap hoc lieu pdf va docs/
 __pycache__/
 *.pyc
 .DS_Store
+.env
+

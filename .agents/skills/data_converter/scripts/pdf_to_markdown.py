@@ -1,4 +1,4 @@
-﻿"""
+"""
 Step 1 – Data Converter
 Reads all PDF / DOCX files from the input folder and converts them to Markdown.
 Output: markdown_cache/<filename>.md inside the input folder.
@@ -19,11 +19,31 @@ except ImportError:
     os.system(f"{sys.executable} -m pip install python-docx -q")
     from docx import Document as DocxDocument
 
+import unicodedata
+
 WORKSPACE_ROOT = Path(__file__).resolve().parents[4]
-INPUT_FOLDER   = WORKSPACE_ROOT / "Nhap hoc lieu pdf va docs"
-# Try Vietnamese name first
+
+def find_normalized_dir(parent: Path, name: str) -> Path:
+    target_nfc = unicodedata.normalize('NFC', name)
+    target_nfd = unicodedata.normalize('NFD', name)
+    p_nfc = parent / target_nfc
+    if p_nfc.exists():
+        return p_nfc
+    p_nfd = parent / target_nfd
+    if p_nfd.exists():
+        return p_nfd
+    if parent.exists():
+        for child in parent.iterdir():
+            if child.is_dir():
+                child_norm = unicodedata.normalize('NFC', child.name)
+                if child_norm == target_nfc:
+                    return child
+    return p_nfc
+
+INPUT_FOLDER = find_normalized_dir(WORKSPACE_ROOT, "Nhập học liệu pdf và docs")
 if not INPUT_FOLDER.exists():
-    INPUT_FOLDER = WORKSPACE_ROOT / "Nh\u1eadp h\u1ecdc li\u1ec7u pdf v\u00e0 docs"
+    INPUT_FOLDER = WORKSPACE_ROOT / "Nhap hoc lieu pdf va docs"
+
 CACHE_FOLDER = INPUT_FOLDER / "markdown_cache"
 CACHE_FOLDER.mkdir(exist_ok=True)
 
@@ -54,6 +74,9 @@ def docx_to_markdown(docx_path: Path) -> str:
 
 def main():
     files_done = 0
+    if not INPUT_FOLDER.exists():
+        print(f"  [ERR] Input directory {INPUT_FOLDER} does not exist.")
+        return False
     for file in INPUT_FOLDER.iterdir():
         if file.suffix.lower() not in {".pdf", ".docx"}: continue
         if file.stem.startswith("~"): continue
@@ -66,7 +89,7 @@ def main():
         except Exception as e:
             print(f"  [ERR] {file.name}: {e}")
     print(f"\n[Step 1] {files_done} file(s) converted.")
-    return files_done > 0
+    return True
 
 if __name__ == "__main__":
     sys.exit(0 if main() else 1)

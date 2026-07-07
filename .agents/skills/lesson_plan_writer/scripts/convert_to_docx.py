@@ -20,15 +20,15 @@ def add_callout_box(doc, text):
     table.alignment = WD_ALIGN_PARAGRAPH.CENTER
     cell = table.cell(0, 0)
     
-    # Set background color to light gray/blue (F0F4F8)
-    set_cell_background(cell, "F0F4F8")
+    # Set background color to Isabelline (#F8F2ED)
+    set_cell_background(cell, "F8F2ED")
     
-    # Set left border to thick blue (003366)
+    # Set left border to thick Black (#192027) - consistent with Neo-brutalism style
     tcPr = cell._tc.get_or_add_tcPr()
     tcBorders = parse_xml(r'''
         <w:tcBorders xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
             <w:top w:val="none"/>
-            <w:left w:val="single" w:sz="24" w:space="0" w:color="003366"/>
+            <w:left w:val="single" w:sz="24" w:space="0" w:color="192027"/>
             <w:bottom w:val="none"/>
             <w:right w:val="none"/>
         </w:tcBorders>
@@ -43,10 +43,10 @@ def add_callout_box(doc, text):
     p.paragraph_format.space_after = Pt(6)
     
     run = p.add_run(text)
-    run.font.name = 'Arial'
+    run.font.name = 'Inter'
     run.font.size = Pt(10.5)
     run.font.italic = True
-    run.font.color.rgb = RGBColor(0x33, 0x33, 0x33)
+    run.font.color.rgb = RGBColor(0x19, 0x20, 0x27) # Black (#192027)
 
 def convert_md_to_docx(md_path, docx_path):
     doc = Document()
@@ -59,12 +59,12 @@ def convert_md_to_docx(md_path, docx_path):
         section.left_margin = Inches(1)
         section.right_margin = Inches(1)
 
-    # Base style setup
+    # Base style setup using Inter font & Black text color
     style = doc.styles['Normal']
     font = style.font
-    font.name = 'Arial'
+    font.name = 'Inter'
     font.size = Pt(11)
-    font.color.rgb = RGBColor(0x22, 0x22, 0x22)
+    font.color.rgb = RGBColor(0x19, 0x20, 0x27) # Black (#192027)
     
     with open(md_path, 'r', encoding='utf-8') as f:
         lines = f.readlines()
@@ -105,9 +105,10 @@ def convert_md_to_docx(md_path, docx_path):
                 p.paragraph_format.space_before = Pt(18)
                 p.paragraph_format.space_after = Pt(12)
                 run = p.add_run(clean_text)
+                run.font.name = 'Inter'
                 run.font.size = Pt(20)
                 run.font.bold = True
-                run.font.color.rgb = RGBColor(0x00, 0x33, 0x66)
+                run.font.color.rgb = RGBColor(0x30, 0x50, 0xA2) # Cyan Cobalt Blue (#3050A2)
             i += 1
             continue
 
@@ -118,42 +119,46 @@ def convert_md_to_docx(md_path, docx_path):
             p.paragraph_format.space_after = Pt(6)
             p.paragraph_format.keep_with_next = True
             run = p.add_run(line[2:])
+            run.font.name = 'Inter'
             run.font.size = Pt(20)
             run.font.bold = True
-            run.font.color.rgb = RGBColor(0x00, 0x33, 0x66)
+            run.font.color.rgb = RGBColor(0x30, 0x50, 0xA2) # Cyan Cobalt Blue (#3050A2)
         elif line.startswith('## '):
             p = doc.add_paragraph()
             p.paragraph_format.space_before = Pt(14)
             p.paragraph_format.space_after = Pt(4)
             p.paragraph_format.keep_with_next = True
             run = p.add_run(line[3:])
+            run.font.name = 'Inter'
             run.font.size = Pt(16)
             run.font.bold = True
-            run.font.color.rgb = RGBColor(0x00, 0x55, 0x88)
+            run.font.color.rgb = RGBColor(0x29, 0xB1, 0x98) # Mountain Meadow (#29B198)
         elif line.startswith('### '):
             p = doc.add_paragraph()
             p.paragraph_format.space_before = Pt(12)
             p.paragraph_format.space_after = Pt(4)
             p.paragraph_format.keep_with_next = True
             run = p.add_run(line[4:])
+            run.font.name = 'Inter'
             run.font.size = Pt(14)
             run.font.bold = True
-            run.font.color.rgb = RGBColor(0x22, 0x66, 0x99)
+            run.font.color.rgb = RGBColor(0x30, 0x50, 0xA2) # Cyan Cobalt Blue (#3050A2)
         elif line.startswith('#### '):
             p = doc.add_paragraph()
             p.paragraph_format.space_before = Pt(8)
             p.paragraph_format.space_after = Pt(2)
             p.paragraph_format.keep_with_next = True
             run = p.add_run(line[5:])
+            run.font.name = 'Inter'
             run.font.size = Pt(12)
             run.font.bold = True
-            run.font.color.rgb = RGBColor(0x33, 0x33, 0x33)
+            run.font.color.rgb = RGBColor(0x19, 0x20, 0x27) # Black (#192027)
             
         # Horizontal rule
         elif line == '---':
             p = doc.add_paragraph()
             p.paragraph_format.space_after = Pt(12)
-            pBdr = parse_xml(r'<w:pBdr xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:bottom w:val="single" w:sz="6" w:space="1" w:color="CCCCCC"/></w:pBdr>')
+            pBdr = parse_xml(r'<w:pBdr xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:bottom w:val="single" w:sz="6" w:space="1" w:color="192027"/></w:pBdr>')
             p._p.get_or_add_pPr().append(pBdr)
             
         # Bullet list items
@@ -165,12 +170,15 @@ def convert_md_to_docx(md_path, docx_path):
             for part in parts:
                 if part.startswith('**') and part.endswith('**'):
                     r = p.add_run(part[2:-2])
+                    r.font.name = 'Inter'
                     r.font.bold = True
                 elif part.startswith('*') and part.endswith('*'):
                     r = p.add_run(part[1:-1])
+                    r.font.name = 'Inter'
                     r.font.italic = True
                 else:
-                    p.add_run(part)
+                    r = p.add_run(part)
+                    r.font.name = 'Inter'
                     
         # Empty space
         elif line == '':
@@ -184,16 +192,19 @@ def convert_md_to_docx(md_path, docx_path):
             for part in parts:
                 if part.startswith('**') and part.endswith('**'):
                     r = p.add_run(part[2:-2])
+                    r.font.name = 'Inter'
                     r.font.bold = True
                 elif part.startswith('*') and part.endswith('*'):
                     r = p.add_run(part[1:-1])
+                    r.font.name = 'Inter'
                     r.font.italic = True
                 else:
-                    p.add_run(part)
+                    r = p.add_run(part)
+                    r.font.name = 'Inter'
         i += 1
         
     doc.save(docx_path)
-    print("Successfully converted to docx file.")
+    print("Successfully converted to docx file with branding style.")
 
 if __name__ == '__main__':
     if len(sys.argv) < 3:

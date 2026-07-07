@@ -1,10 +1,21 @@
 Kính gửi Quản lý Học thuật,
 
-Hệ thống tự động phát hiện 1 giáo án không đạt tiêu chuẩn (dưới 50 điểm) trong đợt tạo bài mới nhất (2026-07-06 17:57).
+Hệ thống tự động phát hiện 2 giáo án không đạt tiêu chuẩn (dưới 50 điểm) trong đợt tạo bài mới nhất (2026-07-07 00:17).
 
 Vui lòng xem xét các chi tiết bên dưới và kiểm tra trên hệ thống Streamlit:
 
-🛑 Tên File: Math Lesson.md
+🛑 Tên File: Counting And Colour 1 10.md
+   - Điểm số: 45/100
+   - Các tiêu chí bị đánh giá kém:
+     * Độ An Toàn Lớp Học (Cảnh báo đỏ)
+     * Chuẩn Phương Pháp Dạy Theo Độ Tuổi
+     * Tính Tò Mò, Hứng Thú
+   - Gợi ý sửa đổi:
+     * Cảnh báo: Thiếu ghi chú an toàn (Safety Note) cho hoạt động sử dụng kéo hoặc vật nhỏ.
+     * Hoạt động quá tĩnh, cần bổ sung TPR (Total Physical Response) và các bài hát khởi động.
+     * Lesson plan thiếu Trò chơi/vận động/thiếu tính sáng tạo, học sinh phải ngồi ghế quá lâu.
+
+🛑 Tên File: My Birthday Party.md
    - Điểm số: 45/100
    - Các tiêu chí bị đánh giá kém:
      * Độ An Toàn Lớp Học (Cảnh báo đỏ)

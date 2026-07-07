@@ -1,0 +1,53 @@
+{
+  "age_group": "3-4",
+  "week_1": {
+    "math": [
+      {
+        "lesson": 1,
+        "title": "Counting and Colour 1-10",
+        "material": "COUNTING AND COLOUR 1-10.pdf"
+      },
+      {
+        "lesson": 2,
+        "title": "Roll and Build Numbers",
+        "material": "ROLL AND BUILD.pdf"
+      }
+    ],
+    "show_and_tell": [
+      {
+        "lesson": 1,
+        "title": "My Birthday Cake",
+        "material": "LESSON 1.pdf"
+      },
+      null
+    ],
+    "happy_friday": [
+      {
+        "lesson": 1,
+        "title": "Fruity Sweets Colour Mixing",
+        "material": "FRUITY SWEETS COLOUR MIXING.pdf"
+      }
+    ]
+  },
+  "week_2": {
+    "math": [
+      {
+        "lesson": 3,
+        "title": "Counting Candles",
+        "material": "Candles.pdf"
+      },
+      {
+        "lesson": 4,
+        "title": "Birthday Cake Cut-Out",
+        "material": "Cake Cut-Out.pdf"
+      }
+    ],
+    "show_and_tell": [
+      null,
+      null
+    ],
+    "happy_friday": [
+      null
+    ]
+  }
+}

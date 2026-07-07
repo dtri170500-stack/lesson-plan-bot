@@ -21,7 +21,7 @@ SCRIPTS = {
     "step2": AGENTS_DIR / "skills" / "curriculum_planner" / "scripts" / "plan_curriculum.py",
     "step3": AGENTS_DIR / "skills" / "lesson_plan_writer"  / "scripts" / "write_all_lessons.py",
     "step4": AGENTS_DIR / "skills" / "lesson_plan_writer"  / "scripts" / "convert_to_docx.py",
-    "step5": AGENTS_DIR / "skills" / "lesson_plan_writer"  / "scripts" / "upload_to_drive.py",
+    "step5": AGENTS_DIR / "skills" / "lesson_plan_writer"  / "scripts" / "upload_gas.py",
 }
 
 
@@ -60,7 +60,7 @@ def batch_convert_docx(age: str) -> bool:
         if " - Lesson " in stem:
             topic = stem.split(" - Lesson ")[0].strip()
         else:
-            topic = "General"
+            topic = stem
             
         topic_folder = output_folder / topic
         topic_folder.mkdir(parents=True, exist_ok=True)
@@ -113,15 +113,34 @@ def main():
         print("[PIPELINE] Warning: no DOCX files produced. Skipping upload.")
         return
 
+    # Step 4.5 - Grading lesson plans
+    grade_script = AGENTS_DIR / "reporting" / "grade_lesson_plans.py"
+    if not run_step("Step 4.5 – AI Grading & Assessment", grade_script, []):
+        print("[PIPELINE] Warning: Grading failed.")
+
     # HUMAN CHECKPOINT
-    if not dry_run and not auto_approve:
+    if not dry_run:
         print(f"\n{'='*60}")
-        print(f"  HUMAN CHECKPOINT")
+        print(f"  HUMAN CHECKPOINT (MANDATORY)")
         print(f"{'='*60}")
-        print("[PIPELINE] Vui lòng kiểm tra các file DOCX trong thư mục 'Output giao an docs'.")
-        user_input = input("[PIPELINE] Nhấn Enter để phê duyệt và đẩy lên Drive/Sheet, hoặc gõ 'exit' để dừng: ")
-        if user_input.strip().lower() == 'exit':
-            print("[PIPELINE] Pipeline stopped by user at Human Checkpoint.")
+        print("[PIPELINE] Vui lòng kiểm tra các file chấm điểm trên Dashboard (http://localhost:9009) hoặc thư mục 'Output giao an docs'.")
+        
+        user_input = input("[PIPELINE] Nhập 'Duyệt.' để tiếp tục đồng bộ lên Drive/Sheet, hoặc nhấn Enter/gõ bất kỳ để báo chưa ổn: ")
+        
+        if user_input.strip() != 'Duyệt.':
+            print("\n[PIPELINE] Phát hiện yêu cầu làm lại.")
+            feedback = input("[PIPELINE] Vui lòng nhập đề xuất/góp ý để làm lại: ")
+            
+            # Save feedback
+            feedback_path = WORKSPACE_ROOT / "Output giáo án docs" / "feedback.txt"
+            try:
+                with open(feedback_path, 'w', encoding='utf-8') as f:
+                    f.write(feedback)
+                print(f"[PIPELINE] Đã lưu ý kiến phản hồi tại: {feedback_path.name}")
+            except Exception as e:
+                print(f"[PIPELINE] Không thể lưu feedback: {e}")
+                
+            print("\n[PIPELINE] Dừng quy trình để sửa đổi theo ý kiến phản hồi.")
             return
 
     # Step 5 – Upload to Google Drive + Sheet
@@ -135,6 +154,18 @@ def main():
     print(f"\n{'#'*60}")
     print(f"  PIPELINE COMPLETE  |  Age: {age}")
     print(f"{'#'*60}\n")
+    
+    # Auto-open the XLSX grading report
+    xlsx_path = WORKSPACE_ROOT / "Output giáo án docs" / "grading_report.xlsx"
+    if not xlsx_path.exists():
+        xlsx_path = WORKSPACE_ROOT / "Output giao an docs" / "grading_report.xlsx"
+        
+    if xlsx_path.exists():
+        try:
+            print(f"[PIPELINE] Auto-opening grading report: {xlsx_path.name}")
+            subprocess.run(["open", str(xlsx_path)])
+        except Exception as e:
+            print(f"[PIPELINE] Could not auto-open grading report: {e}")
 
 
 if __name__ == "__main__":

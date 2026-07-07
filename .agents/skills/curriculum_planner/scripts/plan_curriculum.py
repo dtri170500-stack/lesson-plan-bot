@@ -10,14 +10,36 @@ import sys, os, json, re
 from pathlib import Path
 from datetime import datetime
 
+import unicodedata
+
 WORKSPACE_ROOT = Path(__file__).resolve().parents[4]
-INPUT_FOLDER   = WORKSPACE_ROOT / "Nhap hoc lieu pdf va docs"
+
+def find_normalized_dir(parent: Path, name: str) -> Path:
+    target_nfc = unicodedata.normalize('NFC', name)
+    target_nfd = unicodedata.normalize('NFD', name)
+    p_nfc = parent / target_nfc
+    if p_nfc.exists():
+        return p_nfc
+    p_nfd = parent / target_nfd
+    if p_nfd.exists():
+        return p_nfd
+    if parent.exists():
+        for child in parent.iterdir():
+            if child.is_dir():
+                child_norm = unicodedata.normalize('NFC', child.name)
+                if child_norm == target_nfc:
+                    return child
+    return p_nfc
+
+INPUT_FOLDER = find_normalized_dir(WORKSPACE_ROOT, "Nhập học liệu pdf và docs")
 if not INPUT_FOLDER.exists():
-    INPUT_FOLDER = WORKSPACE_ROOT / "Nh\u1eadp h\u1ecdc li\u1ec7u pdf v\u00e0 docs"
+    INPUT_FOLDER = WORKSPACE_ROOT / "Nhap hoc lieu pdf va docs"
+
 CACHE_FOLDER  = INPUT_FOLDER / "markdown_cache"
-OUTPUT_FOLDER = WORKSPACE_ROOT / "Output giao an docs"
+
+OUTPUT_FOLDER = find_normalized_dir(WORKSPACE_ROOT, "Output giáo án docs")
 if not OUTPUT_FOLDER.exists():
-    OUTPUT_FOLDER = WORKSPACE_ROOT / "Output gi\u00e1o \u00e1n docs"
+    OUTPUT_FOLDER = WORKSPACE_ROOT / "Output giao an docs"
 OUTPUT_FOLDER.mkdir(exist_ok=True)
 
 # ---------- Subject Classifier rules ----------

@@ -1,22 +1,6 @@
 [
   {
-    "filename": "My Birthday Party - Lesson 2.md",
-    "total_score": 100,
-    "scores": {
-      "Data Extraction (15)": 15,
-      "Montessori Standards (20)": 20,
-      "Age Appropriateness (15)": 15,
-      "Scaffolding (15)": 15,
-      "Safety (10)": 10,
-      "Engagement (15)": 15,
-      "Formatting (10)": 10
-    },
-    "failed_items": [],
-    "suggestions": [],
-    "status": "PASS"
-  },
-  {
-    "filename": "Math Lesson.md",
+    "filename": "Counting And Colour 1 10.md",
     "total_score": 45,
     "scores": {
       "Data Extraction (15)": 15,
@@ -40,7 +24,31 @@
     "status": "FAIL"
   },
   {
-    "filename": "My Birthday Party - Lesson 3.md",
+    "filename": "My Birthday Party.md",
+    "total_score": 45,
+    "scores": {
+      "Data Extraction (15)": 15,
+      "Montessori Standards (20)": 20,
+      "Age Appropriateness (15)": 0,
+      "Scaffolding (15)": 0,
+      "Safety (10)": 0,
+      "Engagement (15)": 0,
+      "Formatting (10)": 10
+    },
+    "failed_items": [
+      "Độ An Toàn Lớp Học (Cảnh báo đỏ)",
+      "Chuẩn Phương Pháp Dạy Theo Độ Tuổi",
+      "Tính Tò Mò, Hứng Thú"
+    ],
+    "suggestions": [
+      "Cảnh báo: Thiếu ghi chú an toàn (Safety Note) cho hoạt động sử dụng kéo hoặc vật nhỏ.",
+      "Hoạt động quá tĩnh, cần bổ sung TPR (Total Physical Response) và các bài hát khởi động.",
+      "Lesson plan thiếu Trò chơi/vận động/thiếu tính sáng tạo, học sinh phải ngồi ghế quá lâu."
+    ],
+    "status": "FAIL"
+  },
+  {
+    "filename": "Sink or Float.md",
     "total_score": 100,
     "scores": {
       "Data Extraction (15)": 15,
